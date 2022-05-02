@@ -10,15 +10,19 @@ const Timer = () => {
 
     const time = useSelector((state) => state.second.value);
 
+
     useEffect(() => {
-        setInterval(() => {
-            updateRemainingTimeSec();
+        const interval = setInterval(() => {
+            updateRemainingTimeSec(time => time + 1);
         }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     const updateRemainingTimeSec = () => {
-        dispatch(decrement());
-    }
+        if (time >= 0) {
+            dispatch(decrement());
+        }
+    };
 
     return (
         <>

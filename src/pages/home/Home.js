@@ -10,6 +10,7 @@ import Timer from './timer/Timer';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { incrementByAmount, resetTime } from './../../reduxToolKits/secondSlice';
+import { setTrue, setFalse } from '../../reduxToolKits/statusSlice';
 
 
 const Home = () => {
@@ -19,13 +20,12 @@ const Home = () => {
     const [Minute, setMinute] = useState();
     const [Second, setSecond] = useState();
 
-    const [inStatus, setInStatus] = useState(true);
 
     //Redux Time
     let time = useSelector((state) => state.second.value);
-    // let inStat = useSelector((state) => state.showStatus.status);
+    let inStat = useSelector((state) => state.showStatus.status);
 
-    console.log(useSelector((state) => state));
+
 
     const dispatch = useDispatch();
 
@@ -36,8 +36,7 @@ const Home = () => {
         dispatch(incrementByAmount(Hour * 60 * 60 + Minute * 60 + Second * 1));
 
         console.log(time);
-
-        setInStatus(false);
+        dispatch(setFalse());
     }
 
     const resetCountDown = () => {
@@ -45,8 +44,7 @@ const Home = () => {
         setMinute();
         setSecond();
         dispatch(resetTime());
-
-        setInStatus(true);
+        dispatch(setTrue());
     }
 
     return (
@@ -55,7 +53,7 @@ const Home = () => {
             <Link to="/about">About</Link>
 
             {
-                inStatus &&
+                inStat &&
                 <>
                     <Box
                         component="form"
@@ -92,7 +90,7 @@ const Home = () => {
             }
 
             {
-                !inStatus &&
+                !inStat &&
                 <>
                     <button onClick={resetCountDown}>Reset</button>
 
