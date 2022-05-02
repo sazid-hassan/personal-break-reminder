@@ -22,5 +22,4 @@ export const secondSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { decrement, incrementByAmount, resetTime } = secondSlice.actions;
-
-export default secondSlice.reducer
+export default secondSlice.reducer;
