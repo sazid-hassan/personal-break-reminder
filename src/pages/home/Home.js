@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
 
 
-
-import { Link } from "react-router-dom";
 import Timer from './timer/Timer';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,57 +50,71 @@ const Home = () => {
 
     return (
         <>
-            <h3>Home</h3>
-            <Link to="/about">About</Link>
+            <CssBaseline />
+            <Container maxWidth="sm">
+                <Box sx={{ bgcolor: '#ebecf7', height: '100vh', width: 'auto' }}>
+                    {
+                        inStat &&
+                        <>
+                            <Box
+                                component="form"
+                                sx={{
+                                    '& > :not(style)': { m: 1, width: '15ch' },
+                                }}
+                                noValidate
+                                autoComplete="off"
+                            >
+                                <h5>Set Timer</h5>
+                                <TextField
+                                    id="filled-basic"
+                                    label="Hours"
+                                    variant="filled"
+                                    value={Hour}
+                                    onChange={(e) => { setHour(e.target.value); }}
+                                />
+                                <TextField
+                                    id="filled-basic"
+                                    label="Minutes"
+                                    variant="filled"
+                                    value={Minute}
+                                    onChange={(e) => { setMinute(e.target.value); }}
+                                />
+                                <TextField
+                                    id="filled-basic"
+                                    label="Seconds"
+                                    variant="filled"
+                                    value={Second}
+                                    onChange={(e) => setSecond(e.target.value)} />
 
-            {
-                inStat &&
-                <>
-                    <Box
-                        component="form"
-                        sx={{
-                            '& > :not(style)': { m: 1, width: '25ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        <h5>Set Timer</h5>
-                        <TextField
-                            id="filled-basic"
-                            label="Hours"
-                            variant="filled"
-                            value={Hour}
-                            onChange={(e) => { setHour(e.target.value); }}
-                        />
-                        <TextField
-                            id="filled-basic"
-                            label="Minutes"
-                            variant="filled"
-                            value={Minute}
-                            onChange={(e) => { setMinute(e.target.value); }}
-                        />
-                        <TextField
-                            id="filled-basic"
-                            label="Seconds"
-                            variant="filled"
-                            value={Second}
-                            onChange={(e) => setSecond(e.target.value)} />
+                            </Box>
+                            <Button
+                                onClick={startCountDown}
+                                variant="contained"
+                                color="success">
+                                Start
+                            </Button>
+                        </>
+                    }
 
-                    </Box><button onClick={startCountDown}>Start</button>
-                </>
-            }
+                    {
+                        !inStat &&
+                        <>
+                            <Timer
+                                seconds={Second}
+                            />
 
-            {
-                !inStat &&
-                <>
-                    <button onClick={resetCountDown}>Reset</button>
+                            <Button
+                                variant="outlined"
+                                onClick={resetCountDown}
+                                color="error">
+                                Reset
+                            </Button>
+                        </>
+                    }
+                </Box>
 
+            </Container>
 
-                    <Timer
-                        seconds={Second}
-                    />
-                </>
-            }
         </>
     )
 }

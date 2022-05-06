@@ -10,7 +10,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['About Us'];
+import "./nav.css";
+
+import { Link } from "react-router-dom";
+
+
+const pages = [];
 
 const Nav = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -37,7 +42,9 @@ const Nav = () => {
                             component="div"
                             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                         >
-                            Personal Break Checker
+                            <Link to="/">
+                                Personal Break Checker
+                            </Link>
                         </Typography>
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
