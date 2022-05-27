@@ -12,6 +12,7 @@ import Timer from './timer/Timer';
 import { useSelector, useDispatch } from 'react-redux';
 import { incrementByAmount, resetTime } from './../../reduxToolKits/secondSlice';
 import { setTrue, setFalse } from '../../reduxToolKits/statusSlice';
+import { Typography } from '@mui/material';
 
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
     const [Hour, setHour] = useState();
     const [Minute, setMinute] = useState();
     const [Second, setSecond] = useState();
+    // const [buttonState, setButtonState] = useState(false);
 
 
     //Redux Time
@@ -34,10 +36,12 @@ const Home = () => {
         console.log("Countdown Started");
 
         // time = Hour * 60 * 60 + Minute * 60 + Second * 1;
+
         dispatch(incrementByAmount(Hour * 60 * 60 + Minute * 60 + Second * 1));
 
         console.log(time);
         dispatch(setFalse());
+
     }
 
     const resetCountDown = () => {
@@ -57,6 +61,7 @@ const Home = () => {
                         inStat &&
                         <>
                             <Box
+                                textAlign='center'
                                 component="form"
                                 sx={{
                                     '& > :not(style)': { m: 1, width: '15ch' },
@@ -64,12 +69,20 @@ const Home = () => {
                                 noValidate
                                 autoComplete="off"
                             >
-                                <h5>Set Timer</h5>
+                                <Typography
+                                    textAlign='center'
+                                    variant='h5'
+                                    gutterBottom
+                                >
+                                    Set Timer
+                                </Typography>
                                 <TextField
                                     id="filled-basic"
                                     label="Hours"
                                     variant="filled"
                                     value={Hour}
+                                    type="number"
+                                    inputProps={{ inputProps: { min: 0, max: 24 } }}
                                     onChange={(e) => { setHour(e.target.value); }}
                                 />
                                 <TextField
@@ -77,6 +90,7 @@ const Home = () => {
                                     label="Minutes"
                                     variant="filled"
                                     value={Minute}
+                                    type="number"
                                     onChange={(e) => { setMinute(e.target.value); }}
                                 />
                                 <TextField
@@ -84,15 +98,21 @@ const Home = () => {
                                     label="Seconds"
                                     variant="filled"
                                     value={Second}
-                                    onChange={(e) => setSecond(e.target.value)} />
+                                    type="number"
+                                    onChange={(e) => setSecond(e.target.value)}
+                                />
 
                             </Box>
-                            <Button
-                                onClick={startCountDown}
-                                variant="contained"
-                                color="success">
-                                Start
-                            </Button>
+                            <Box
+                                textAlign='center'>
+                                <Button
+                                    onClick={startCountDown}
+                                    variant="contained"
+                                    color="success">
+                                    Start
+                                </Button>
+                            </Box>
+
                         </>
                     }
 
